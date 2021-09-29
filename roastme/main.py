@@ -15,5 +15,8 @@ async def on_message(message):
 
     if message.content.startswith('$roastme'):
         await message.channel.send(insults[randrange(len(insults)-1)])
+    
+    if message.content.startswith('$roastSteven'):
+        await message.channel.send('@Steven (Chubs) is a c*nt')
 
 client.run('token goes here')

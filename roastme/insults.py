@@ -4,5 +4,6 @@ insults = [
   'Nice jacket loser',
   'Go f*ck yourself.',
   'Eat a d*ck.',
-  'You literally smell.'
+  'You literally smell.',
+  'Your head looks like a pineapple.'
 ]
