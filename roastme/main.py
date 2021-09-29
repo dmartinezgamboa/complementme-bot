@@ -14,6 +14,6 @@ async def on_message(message):
         return
 
     if message.content.startswith('$roastme'):
-        await message.channel.send(insults[randrange(len(insults))])
+        await message.channel.send(insults[randrange(len(insults)-1)])
 
 client.run('token goes here')
