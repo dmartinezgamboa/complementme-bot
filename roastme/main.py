@@ -1,11 +1,19 @@
 import discord
+from random import randrange
+from insults import insults
 
-class MyClient(discord.Client):
-    async def on_ready(self):
-        print('Logged on as {0}!'.format(self.user))
+client = discord.Client()
 
-    async def on_message(self, message):
-        print('Message from {0.author}: {0.content}'.format(message))
+@client.event
+async def on_ready():
+    print('We have logged in as {0.user}'.format(client))
 
-client = MyClient()
-client.run('my token goes here')
+@client.event
+async def on_message(message):
+    if message.author == client.user:
+        return
+
+    if message.content.startswith('$roastme'):
+        await message.channel.send(insults[randrange(len(insults))])
+
+client.run('token goes here')
