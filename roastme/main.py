@@ -19,4 +19,4 @@ async def on_message(message):
     if message.content.startswith('$roastSteven'):
         await message.channel.send('@Steven (Chubs) is a c*nt')
 
-client.run('ODkyNTYwODEwOTk0NDQ2NDA2.YVOsCA.S4O4bL0vuxaXJqiemwAFGoP8Eg8')
+client.run('token goes here')
