@@ -11,21 +11,22 @@ client = discord.Client()
 
 @client.event
 async def on_ready():
+    testChannel = client.get_channel(int(TEST_CHANNEL)) #test channel ID
     print('We have logged in as {0.user}'.format(client))
-
-    channel = client.get_channel(TEST_CHANNEL) #test channel ID
-    await channel.send("I'm online b*tches!")
+    print(testChannel)
+    await testChannel.send("I'm online b*tches!")
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
 
-    if message.content.startswith('&roastmeCommands'):
+    if message.content.startswith('$roastmeCommands'):
         await message.channel.send(
-          "Do I really need to tell you everything? Here you go:\n \
-          $roastme - for randomized\
-          ")
+          "Do I really need to tell you everything? Here you go:\n\
+          $roastmeCommands - for a list of commands\n\
+          $roastme - for randomized insult\n\
+          $roastSteven - to roast Steven specifically")
 
     if message.content.startswith('$roastme'):
         await message.channel.send(insults[randrange(len(insults)-1)])
