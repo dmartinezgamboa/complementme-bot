@@ -4,8 +4,6 @@ import insults
 import os
 
 TOKEN = os.environ['DISCORD_ROASTME_TOKEN']
-STEVEN = os.environ['STEVEN_ID']
-TEST_CHANNEL = os.environ['DISCORD_TEST_CHANNEL']
 
 def createInsult(user):
     includeAdverb = bool(randrange(0,2))
