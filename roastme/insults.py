@@ -7,3 +7,18 @@ insults = [
   'You literally smell.',
   'Your head looks like a pineapple.'
 ]
+
+adverbs = [
+  'very',
+  'extremely',
+  'ridiculiously'
+  'kind of'
+]
+
+adjectives = [
+  'stupid.',
+  'lame.',
+  'garbage.',
+  'dumb.',
+  'soft.'
+]
