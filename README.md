@@ -1,8 +1,11 @@
 # roastme-bot
 Discord Bot that insults you.
 
-### 1. Activate virtual environment:
+### 1. Navigate to roastme/ directory:
+cd roastme
+
+### 2. Activate virtual environment:
 source bot-env/bin/activate
 
-### 2. Run bot
-python3 roastme/main.py
+### 3. Run bot
+python3 main.py
