@@ -9,7 +9,6 @@ TEST_CHANNEL = os.environ['DISCORD_TEST_CHANNEL']
 
 def createInsult(user):
     includeAdverb = bool(randrange(0,2))
-    print(includeAdverb)
     adjective = insults.adjectives[randrange(0, len(insults.adjectives))]
     if (includeAdverb):
         adverb = insults.adverbs[randrange(0, len(insults.adverbs))]
@@ -21,7 +20,6 @@ bot = commands.Bot(command_prefix="/")
 
 @bot.command()
 async def roast(ctx, arg):
-    print(arg)
     if (arg.startswith("<@!", 0)):
         await ctx.send(createInsult(arg))
 
