@@ -18,7 +18,10 @@ bot = commands.Bot(command_prefix="/")
 
 @bot.command()
 async def roast(ctx, arg):
-    if (arg.startswith("<@!", 0)):
+    print(arg)
+    if (arg == 'me'):
+        await ctx.send("You're garbage.")
+    if (arg.startswith("<@", 0)):
         await ctx.send(createInsult(arg))
 
 bot.run(TOKEN)
