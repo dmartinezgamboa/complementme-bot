@@ -1,28 +1,33 @@
-from discord.ext import commands
-from random import randrange
-import insults
 import os
+from random import randrange
+
+from discord.ext import commands
+
+import insults
+
 
 TOKEN = os.environ['DISCORD_ROASTME_TOKEN']
+bot = commands.Bot(command_prefix="/")
 
-def createInsult(user):
-    includeAdverb = bool(randrange(0,2))
+
+def create_insult(user):
     adjective = insults.adjectives[randrange(0, len(insults.adjectives))]
-    if (includeAdverb):
+    include_adverb = bool(randrange(0, 2))
+    if include_adverb:
         adverb = insults.adverbs[randrange(0, len(insults.adverbs))]
         return user + " is " + adverb + " " + adjective
     else:
         return user + " is " + adjective
-   
-bot = commands.Bot(command_prefix="/")
+
 
 @bot.command()
-async def roast(ctx, arg):
+async def roast(context, arg):
     print(arg)
     if (arg == 'me'):
-        await ctx.send("You're garbage.")
+        await context.send("You're garbage.")
     if (arg.startswith("<@", 0)):
-        await ctx.send(createInsult(arg))
+        await context.send(create_insult(arg))
 
-bot.run(TOKEN)
 
+if __name__ == "__main__":
+    bot.run(TOKEN)
