@@ -1,0 +1,14 @@
+version: "2"
+
+services:
+
+  main:
+    restart: always
+    build:
+      context: ./roastme
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./roastme:/usr/src/app/
+    environment:
+      - DISCORD_ROASTME_TOKEN=${DISCORD_ROASTME_TOKEN}

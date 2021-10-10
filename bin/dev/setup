@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Usage: ./bin/dev/setup
+
+export COMPOSE_PROJECT_NAME=roastme
+export COMPOSE_FILE=development.yml
+
+export DISCORD_ROASTME_TOKEN=${DISCORD_ROASTME_TOKEN}
+
+docker-compose build --force-rm
+docker-compose up -d
