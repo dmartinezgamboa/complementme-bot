@@ -25,3 +25,4 @@
 - To run a python shell `docker exec -it roastme_main_1 python`
 - To start the app `docker exec -it roastme_main_1 python main.py`
 - To just access the container `docker exec -it roastme_main_1 bash`
+- To use ipython (recommended) `docker exec -it roastme_main_1 ipython`
