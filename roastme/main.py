@@ -1,33 +1,49 @@
+import json
 import os
 from random import randrange
 
-from discord.ext import commands
-
-import insults
+import discord
 
 
 TOKEN = os.environ['DISCORD_ROASTME_TOKEN']
-bot = commands.Bot(command_prefix="/")
 
 
-def create_insult(user):
-    adjective = insults.adjectives[randrange(0, len(insults.adjectives))]
-    include_adverb = bool(randrange(0, 2))
-    if include_adverb:
-        adverb = insults.adverbs[randrange(0, len(insults.adverbs))]
-        return user + " is " + adverb + " " + adjective
-    else:
-        return user + " is " + adjective
+def load_data():
+    f = open('data.JSON',)
+    data = json.load(f)
+    f.close()
+    return data
 
 
-@bot.command()
-async def roast(context, arg):
-    print(arg)
-    if (arg == 'me'):
-        await context.send("You're garbage.")
-    if (arg.startswith("<@", 0)):
-        await context.send(create_insult(arg))
+class RoastMeClient(discord.Client):
+    def __init__(self, data):
+        self._data = data
+        super().__init__()
 
+    async def on_ready(self):
+        print('Logged in as {0}!'.format(self.user))
+
+    async def on_message(self, message):
+        if message.author == client.user:
+            return
+        if message.content.startswith("<@!" + str(client.user.id)):
+            await message.channel.send(
+                f'You\'re dog sh*t. <@{message.author.id}>')
+
+    def create_insult(self, user):
+        randomIndex = randrange(0, len(self.data["adjectives"]))
+        adjective = self.data["adjectives"][randomIndex]
+        include_adverb = bool(randrange(0, 2))
+
+        if include_adverb:
+            randomIndex = randrange(0, len(self.data["adverbs"]))
+            adverb = self.data["adverbs"][randomIndex]
+            return user + " is " + adverb + " " + adjective
+        else:
+            return user + " is " + adjective
 
 if __name__ == "__main__":
-    bot.run(TOKEN)
+    data = load_data()
+    client = RoastMeClient(data)
+    client.run(TOKEN)
+
