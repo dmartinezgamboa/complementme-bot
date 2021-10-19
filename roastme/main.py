@@ -1,20 +1,29 @@
+import json
 import os
 from random import randrange
 
 from discord.ext import commands
-
-import insults
 
 
 TOKEN = os.environ['DISCORD_ROASTME_TOKEN']
 bot = commands.Bot(command_prefix="/")
 
 
+def load_data():
+    f = open('data.JSON',)
+    data = json.load(f)
+    f.close()
+    return data
+
+
+data = load_data()
+
+
 def create_insult(user):
-    adjective = insults.adjectives[randrange(0, len(insults.adjectives))]
+    adjective = data["adjectives"][randrange(0, len(data["adjectives"]))]
     include_adverb = bool(randrange(0, 2))
     if include_adverb:
-        adverb = insults.adverbs[randrange(0, len(insults.adverbs))]
+        adverb = data["adverbs"][randrange(0, len(data["adverbs"]))]
         return user + " is " + adverb + " " + adjective
     else:
         return user + " is " + adjective
@@ -31,3 +40,4 @@ async def roast(context, arg):
 
 if __name__ == "__main__":
     bot.run(TOKEN)
+
