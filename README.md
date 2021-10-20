@@ -26,3 +26,4 @@
 - To start the app `docker exec -it roastme_main_1 python main.py`
 - To just access the container `docker exec -it roastme_main_1 bash`
 - To use ipython (recommended) `docker exec -it roastme_main_1 ipython`
+- To run tests in the `tests` directory `docker exec -it roastme_main_1 python -m unittest discover -s ./tests -v -p "test_*.py"`
