@@ -1,8 +1,8 @@
-from random import randrange
 import os
 
 import discord
 
+from insults import roast_tagged_user
 
 TOKEN = os.environ['DISCORD_ROASTME_TOKEN']
 
@@ -13,26 +13,22 @@ class RoastMeClient(discord.Client):
         super().__init__()
 
     async def on_ready(self):
-        print('Logged in as {0}!'.format(self.user))
+        print(f"Logged in as {self.user}!")
 
     async def on_message(self, message):
         if message.author == self.user:
             return
-        if message.content.startswith("<@!" + str(self.user.id)):
-            await message.channel.send(
-                f'You\'re dog sh*t. <@{message.author.id}>')
+        if self.user in message.mentions:
+            user = self.find_tagged_user(message.author, message.mentions)
+            roast = roast_tagged_user(user.id, self.data)
+            await message.channel.send(roast)
 
-    def create_insult(self, user):
-        randomIndex = randrange(0, len(self.data["adjectives"]))
-        adjective = self.data["adjectives"][randomIndex]
-        include_adverb = bool(randrange(0, 2))
-
-        if include_adverb:
-            randomIndex = randrange(0, len(self.data["adverbs"]))
-            adverb = self.data["adverbs"][randomIndex]
-            return user + " is " + adverb + " " + adjective
-        else:
-            return user + " is " + adjective
+    def find_tagged_user(self, message_author, mentions):
+        if len(mentions) == 1:
+            return message_author
+        for user in mentions:
+            if user != self.user:
+                return user
 
     @property
     def data(self):

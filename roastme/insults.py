@@ -1,24 +1,14 @@
-insults = [
-  'You are trash.',
-  'Go ahead and leave the server.',
-  'Nice jacket loser',
-  'Go f*ck yourself.',
-  'Eat a d*ck.',
-  'You literally smell.',
-  'Your head looks like a pineapple.'
-]
+from random import randrange
 
-adverbs = [
-  'very',
-  'extremely',
-  'ridiculiously'
-  'kind of'
-]
 
-adjectives = [
-  'stupid.',
-  'lame.',
-  'garbage.',
-  'dumb.',
-  'soft.'
-]
+def roast_tagged_user(user_id, insults_data):
+    random_index = randrange(0, len(insults_data["adjectives"]))
+    adjective = insults_data["adjectives"][random_index]
+    include_adverb = bool(randrange(0, 2))
+
+    if include_adverb:
+        random_index = randrange(0, len(insults_data["adverbs"]))
+        adverb = insults_data["adverbs"][random_index]
+        return f"<@{user_id}> is {adverb} {adjective}"
+    else:
+        return f"<@{user_id}> is {adjective}"
