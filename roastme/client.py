@@ -2,14 +2,15 @@ import os
 
 import discord
 
-from insults import roast_tagged_user
+from roast import roast_tagged_user
 
 TOKEN = os.environ['DISCORD_ROASTME_TOKEN']
 
 
 class RoastMeClient(discord.Client):
-    def __init__(self, data):
-        self._data = data
+    def __init__(self, roasts_parts, roasts_full):
+        self._roasts_parts = roasts_parts
+        self._roasts_full = roasts_full
         super().__init__()
 
     async def on_ready(self):
@@ -20,7 +21,11 @@ class RoastMeClient(discord.Client):
             return
         if self.user in message.mentions:
             user = self.find_tagged_user(message.author, message.mentions)
-            roast = roast_tagged_user(user.id, self.data)
+            roast = roast_tagged_user(
+                user_id=user.id, 
+                roasts_pieces=self.roasts_parts, 
+                roasts_full=self.roasts_full
+                )
             await message.channel.send(roast)
 
     def find_tagged_user(self, message_author, mentions):
@@ -31,5 +36,9 @@ class RoastMeClient(discord.Client):
                 return user
 
     @property
-    def data(self):
-        return self._data
+    def roasts_parts(self):
+        return self._roasts_parts
+
+    @property
+    def roasts_full(self):
+        return self._roasts_full
